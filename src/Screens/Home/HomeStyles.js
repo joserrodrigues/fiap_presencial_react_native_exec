@@ -1,65 +1,57 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../Utils/Constants/Colors';
 
 export default StyleSheet.create({
-    mainContainer: {
+    safeAreaView: {
         flex: 1,
         flexDirection: "column",
         justifyContent: 'flex-start',
     },
+    loadingBox: {
+        marginTop: 30,
+    },
 
-    topScreen:{
-        flex: 3,
-        alignContent: 'center',
-        justifyContent: 'center'
+    containerItem: {
+        marginBottom: 10,
     },
-    bottomScreen:{
-        flex: 4,
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    image: {
+
+    textsView: {
         flex: 1,
-        justifyContent: "center"
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+        marginBottom: 2,
     },
-    frontImageBackground: {
+    textNameStyle: {
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+    },
+
+    textTitle: {
+        fontSize: 18,
+    },
+
+    textDetail: {
+        fontSize: 12,
+    },
+    imageItem: {
+        width: 50,
+        height: 50,
+        margin: 10,
+    },
+    separator: {
         flex: 1,
-        paddingTop: 40,
-        paddingBottom: 30,
-        backgroundColor: 'rgba(0,0,0,0.6)'
+        height: 2,
+        backgroundColor: Colors.separatorColor,
+        marginLeft: 10,
+        marginRight: 10
     },
-    logoDiv:{
-        margin: 20,
-        fontSize: 40,
-        fontWeight: 'bold',
-        textAlign:'center',
-        color: 'red'
+    searchBarContainer:{
+        backgroundColor: Colors.White,
+        marginBottom: 10
     },
-    loginBox: {
-        backgroundColor: 'rgba(255,255,255,0.8)',
-        margin: 35,
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: 'red',
-        padding: 20        
-    },
-    labelLogin:{
-        fontSize: 15,
-        marginLeft: 5,
-        color: '#333'
-    },    
-    bottomButton:{
-        height: 60,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly'
-    },
-    buttonStyle: {
-        backgroundColor: 'red',
-        borderRadius: 10,
-    },
-    buttonContainerStyle: {
-        flex:1,
-        marginHorizontal: 20,
-        marginVertical: 10,
+    searchBarInputContainer: {
+        backgroundColor: Colors.LightGrey,
+        borderRadius: 20,
+        
     }
-
 });

@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "entryPoint": "./src/Screens/Home/HomeController",
+    "entryPoint": "./src/Routes/RouteController",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
