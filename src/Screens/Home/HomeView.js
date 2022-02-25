@@ -2,12 +2,13 @@ import React from 'react';
 import { SafeAreaView, FlatList, View, Text, ActivityIndicator, RefreshControl } from 'react-native';
 import { Image, SearchBar } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import DrawerMenu from '../../Components/DrawerMenu/DrawerMenu';
 import Colors from '../../Utils/Constants/Colors';
 import PropTypes from 'prop-types';
 
 import styles from './HomeStyles';
 
-const HomeView = ({ dataConnectionFiltered, isLoading, goToDetail, searchText, onSearchUpdate, onRefresh }) => {
+const HomeView = ({ navigation, dataConnectionFiltered, isLoading, goToDetail, searchText, onSearchUpdate, onRefresh }) => {
 
     const RenderItem = ({ item }) => {
 
@@ -47,6 +48,7 @@ const HomeView = ({ dataConnectionFiltered, isLoading, goToDetail, searchText, o
     }
     return (
         <SafeAreaView style={styles.safeAreaView}>
+            <DrawerMenu navigation={navigation} />
             <SearchBar
                 placeholder="Digite Aqui..."
                 onChangeText={onSearchUpdate}
