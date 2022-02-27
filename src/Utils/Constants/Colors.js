@@ -10,6 +10,7 @@ export default Colors = {
     BlackLine: 'rgba(0, 0, 0, 0.25)',
     Grey: '#9e9e9e',
     LightGrey: '#eeeeee',
+    DarkGrey: '#333333',
     LightWhite: 'rgba(255, 255, 255, 0.65)',
 
     HeaderBackgroundColor: '#fa5757',

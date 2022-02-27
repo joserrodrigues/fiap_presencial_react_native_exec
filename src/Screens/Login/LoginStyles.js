@@ -1,10 +1,14 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../Utils/Constants/Colors';
 
 export default StyleSheet.create({
     mainContainer: {
         flex: 1,
         flexDirection: "column",
         justifyContent: 'flex-start',
+    },
+    container: {
+        flex: 1,
     },
 
     topScreen:{
@@ -60,6 +64,12 @@ export default StyleSheet.create({
         flex:1,
         marginHorizontal: 20,
         marginVertical: 10,
+    },
+    messageError:{
+        fontSize: 13,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: Colors.Red
     }
 
 });
