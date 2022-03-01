@@ -1,0 +1,17 @@
+export default {
+    library: "Gallery",
+    camera: "Camera",
+    name: "Name",
+    email: 'Email',
+    password: 'Password',
+    confirmPassword: "Confirm password",
+    alertPermissionGallery: 'Sorry, we need your permission to access the gallery',
+    alertPermissionCamera: 'Sorry, we need your permission to access the camera',    
+    requiredName: "Required Name",
+    invalidEmail: "Invalid Email",
+    requiredEmail: "Required Email",
+    requiredPassword: "Required password",
+    requiredConfirmPassword: "Required confirm password",
+    shortPassword: "Password is too short - should have at least 4 characters",
+    passwordMustMatch: 'Passwords must match',
+}

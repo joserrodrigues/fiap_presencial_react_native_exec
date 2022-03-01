@@ -8,6 +8,8 @@ import DrawerMenu from '../../Components/DrawerMenu/DrawerMenu';
 import ControlCamera from '../../Components/ControlCamera/ControlCamera';
 import CustomBottomMenu from '../../Components/CustomBottomMenu/CustomBottomMenu';
 import CommonForm from '../../Components/CommonForm/CommonForm';
+import { translate } from '../../Locales/ManageLocales';
+import { Platform } from "react-native";
 
 const MyInfoView = ({ navigation, pickImage, image, showPhotoOptions, toggleCameraOptions, signInSchema, onSubmit }) => {
 
@@ -15,12 +17,12 @@ const MyInfoView = ({ navigation, pickImage, image, showPhotoOptions, toggleCame
     
     let bottomMenuItems = [
         {
-            title: "Biblioteca",
+            title: translate("library"),
             icon: "camera",
             return: 1,
         },
         {
-            title: "Câmera",
+            title: translate("camera"),
             icon: "photo",
             return: 2,
         },
@@ -29,29 +31,29 @@ const MyInfoView = ({ navigation, pickImage, image, showPhotoOptions, toggleCame
     let formListInfo = [
         {
             name: "name",
-            label: "Nome",
-            placeholder: "Nome",
+            label: translate("name"),
+            placeholder: translate("name"),
             icon: "user",
             secure: false,
         },
         {
             name: "email",
-            label: "E-mail",
-            placeholder: "E-mail",
+            label: translate("email"),
+            placeholder: translate("email"),
             icon: "envelope",
             secure: false,
         },
         {
             name: "password",
-            label: "Senha",
-            placeholder: "Senha",
+            label: translate("password"),
+            placeholder: translate("password"),
             icon: "lock",
             secure: true,
         },
         {
             name: "confirmPassword",
-            label: "Confirmar Senha",
-            placeholder: "Confirmar Senha",
+            label: translate("confirmPassword"),
+            placeholder: translate("confirmPassword"),
             icon: "lock",
             secure: true,
         },
@@ -61,7 +63,6 @@ const MyInfoView = ({ navigation, pickImage, image, showPhotoOptions, toggleCame
     if (Platform.OS === "ios") {
         behavior = "padding";
     }
-
 
     return (
         <SafeAreaView style={styles.mainContainer}>
@@ -95,6 +96,7 @@ const MyInfoView = ({ navigation, pickImage, image, showPhotoOptions, toggleCame
                 <FAB
                     loading={false}
                     icon={{ name: 'check', color: Colors.White }}
+                    testID="saveButton"
                     color={Colors.Red}
                     onPress={() => commonForm.current.submitForm()}
                 />

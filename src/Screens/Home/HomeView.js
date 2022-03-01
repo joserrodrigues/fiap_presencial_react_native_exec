@@ -13,7 +13,7 @@ const HomeView = ({ navigation, dataConnectionFiltered, isLoading, goToDetail, s
     const RenderItem = ({ item }) => {
 
         return (
-            <TouchableOpacity style={styles.containerItem} onPress={() => goToDetail(item)}>
+            <TouchableOpacity testID={"button" + item.CPF.toString()} style={styles.containerItem} onPress={() => goToDetail(item)}>
                 <>
                     <View style={styles.textsView}>
                         <View style={styles.imageBox} >
@@ -43,7 +43,7 @@ const HomeView = ({ navigation, dataConnectionFiltered, isLoading, goToDetail, s
     let loadingBox = null
     if (isLoading) {
         loadingBox = (
-            <ActivityIndicator style={styles.loadingBox} size="large" color={Colors.activityColor} />
+            <ActivityIndicator style={styles.loadingBox} size="large" color={Colors.activityColor} testID="activityLoading" />
         )
     }
     return (
@@ -61,6 +61,7 @@ const HomeView = ({ navigation, dataConnectionFiltered, isLoading, goToDetail, s
                 data={dataConnectionFiltered.persons}
                 renderItem={({ item }) => <RenderItem item={item} />}
                 keyExtractor={item => item.CPF.toString()}
+                testID="flatListHome"
                 refreshControl={
                     <RefreshControl
                         refreshing={false}

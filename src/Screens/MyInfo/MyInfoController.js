@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Yup from "yup";
 import { useDispatch } from 'react-redux';
 import { changeName } from '../../store/modules/login/actions';
+import { translate } from '../../Locales/ManageLocales';
 
 const MyInfoController = ({ navigation }) => {
     const [image, setImage] = useState(null);
@@ -16,14 +17,14 @@ const MyInfoController = ({ navigation }) => {
         //Checa Permissão para acessar a biblioteca de fotos
         let infoLibrary = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (infoLibrary.status !== 'granted') {
-            alert('Desculpe, precisamos da permissão para acessar a galeria');
+            alert(translate('alertPermissionGallery'));
             return false;
         }
 
         //Checa Permissão para acessar a Câmera
         let infoCamera = await ImagePicker.requestCameraPermissionsAsync();
         if (infoCamera.status !== 'granted') {
-            alert('Desculpe, precisamos da permissão para acessar a câmera');
+            alert(translate('alertPermissionCamera'));
             return false;
         }
 
@@ -67,12 +68,15 @@ const MyInfoController = ({ navigation }) => {
     }
 
     const signInSchema = Yup.object().shape({
-        name: Yup.string().required("Nome é obrigatório"),
-        email: Yup.string().email("E-mail não válido").required("E-mail é obrigatório"),
+        name: Yup.string().required(translate('requiredName')),
+        email: Yup.string().email(translate('invalidEmail')).required(translate('requiredEmail')),
 
         password: Yup.string()
-            .required("Senha é obrigatório")
-            .min(4, "Senha é curta - deveria ter ao menos 4 caracteres"),
+            .required(translate('requiredPassword'))
+            .min(4, translate('shortPassword')),
+        confirmPassword: Yup.string()
+            .required(translate('requiredConfirmPassword'))
+            .oneOf([Yup.ref('password'), null], translate('passwordMustMatch'))                       
     });    
 
     const onSubmit = (values) => {

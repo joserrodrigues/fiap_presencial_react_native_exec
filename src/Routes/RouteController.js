@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { registerRootComponent } from 'expo';
@@ -19,11 +19,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import SideMenu from '../Components/SideMenu/SideMenu';
 import { useGetStorageItem } from '../Services/Storage/StorageServices';
 import { stopLoadUserInfo, logout } from '../store/modules/login/actions';
+import { useManageNofification } from '../Services/Notification/ManageNotification';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function MainRouteController() {
+const screenOptions = {
+    headerShown: true,
+    headerStyle: {
+        backgroundColor: Colors.HeaderBackgroundColor,
+    },
+    headerTintColor: Colors.HeaderTintColor,
+    headerLayoutPreset: 'center',
+};
+
+export function StackHome() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeController}
+                options={{ ...screenOptions, title: "Home" }} />
+            <Stack.Screen name="Details" component={DetailController}
+                options={{ ...screenOptions, title: "Detalhe" }} />
+        </Stack.Navigator>
+    );
+}
+
+
+
+export function MainRouteController() {
+
+    const navigationRef = React.useRef();
+    let hasToken = false;
 
     const dispatch = useDispatch();
     const getAsyncInfo = async () => {
@@ -33,27 +59,19 @@ function MainRouteController() {
     }
 
     const onLogout = () => {        
-        dispatch(logout());
+        dispatch(logout());   
     }
 
-    let screenOptions = {
-        headerShown: true,
-        headerStyle: {
-            backgroundColor: Colors.HeaderBackgroundColor,
-        },
-        headerTintColor: Colors.HeaderTintColor,
-        headerLayoutPreset: 'center',
-    };
-
-    const StackHome = () => {
-        return (
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeController}
-                    options={screenOptions} />
-                <Stack.Screen name="Details" component={DetailController}
-                    options={screenOptions} />
-            </Stack.Navigator>
-        );
+    const receiveNotification = (notification, type) => {
+        console.log("Chegou Notificacao");
+        const notificationData = notification.request.content.data;
+        if (notificationData.hasOwnProperty('infoScreen')) {
+            if (navigationRef.current.getCurrentRoute().name !== "LoginScreen") {
+                navigationRef.current.navigate('MyInfo')
+            }
+        } else {
+            console.log("Nnao possui Data");
+        }
     }
 
     const StackMyInfo = () => {
@@ -74,26 +92,32 @@ function MainRouteController() {
         );
     }
     
-    const userInfo = useSelector((state) => state.loginSaga.userInfo);
-    let hasToken = false;
+    const userInfo = useSelector((state) => state.loginSaga.userInfo);    
     if (userInfo !== undefined && userInfo !== null) {
         hasToken = true;
     } else {
         getAsyncInfo();
     }
+    console.log("hasToken = " + hasToken);
+
+    useManageNofification(receiveNotification);
 
     if (!hasToken) {
         return (
-            <NavigationContainer>
+            <NavigationContainer ref={(nav) => {
+                navigationRef.current = nav;
+            }}>
                 <Stack.Navigator>
-                    <Stack.Screen name="MyPosition" component={LoginController}
+                    <Stack.Screen name="LoginScreen" component={LoginController}
                         options={{ headerShown: false }} />
                 </Stack.Navigator>
             </NavigationContainer>
         )
     } else {
         return (
-            <NavigationContainer>
+            <NavigationContainer ref={(nav) => {
+                navigationRef.current = nav;
+            }}>
                 <Drawer.Navigator
                     initialRouteName="Main"
                     // openByDefault="open"

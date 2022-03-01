@@ -1,0 +1,17 @@
+export default {
+    library: "Biblioteca",
+    camera: "Câmera",
+    name: "Nome",
+    email: "E-mail",
+    password: "Senha",
+    confirmPassword: "Confirmar senha",
+    alertPermissionGallery: 'Desculpe, precisamos da permissão para acessar a galeria',
+    alertPermissionCamera: 'Desculpe, precisamos da permissão para acessar a câmera',
+    requiredName: "Nome é obrigatório",
+    invalidEmail: "E-mail não válido",
+    requiredEmail: "E-mail é obrigatório",
+    requiredPassword: "Senha é obrigatório",
+    requiredConfirmPassword: "Confirmar senha é obrigatório",
+    shortPassword: "Senha é curta - deveria ter ao menos 4 caracteres",
+    passwordMustMatch: 'As senhas devem ser iguais',
+}
