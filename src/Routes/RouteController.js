@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import React, { useEffect, useState} from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { registerRootComponent } from 'expo';
 import { Icon } from 'react-native-elements';
+import * as Updates from "expo-updates";
 
 import Colors from '../Utils/Constants/Colors';
 import HomeController from '../Screens/Home/HomeController';
@@ -20,6 +20,7 @@ import SideMenu from '../Components/SideMenu/SideMenu';
 import { useGetStorageItem } from '../Services/Storage/StorageServices';
 import { stopLoadUserInfo, logout } from '../store/modules/login/actions';
 import { useManageNofification } from '../Services/Notification/ManageNotification';
+import LoadingUpdateController from '../Screens/LoadingUpdate/LoadingUpdateController';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -49,7 +50,25 @@ export function StackHome() {
 export function MainRouteController() {
 
     const navigationRef = React.useRef();
+    const [hasUpdate, setHasUpdate] = useState(false);
     let hasToken = false;
+
+    useEffect(() => {
+        async function updateApp() {
+
+            //*
+                const { isAvailable } = await Updates.checkForUpdateAsync();
+                if (isAvailable) {
+                    setHasUpdate(true);
+                }
+            /*/
+            setTimeout(() => {
+                setHasUpdate(true);
+            }, 2000);
+            //*/
+        }
+        updateApp();
+    }, []);
 
     const dispatch = useDispatch();
     const getAsyncInfo = async () => {
@@ -101,8 +120,16 @@ export function MainRouteController() {
     console.log("hasToken = " + hasToken);
 
     useManageNofification(receiveNotification);
-
-    if (!hasToken) {
+    if (hasUpdate) {
+        return (
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen name="MyPosition" component={LoadingUpdateController}
+                        options={{ headerShown: false }} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )  
+    } else if (!hasToken) {
         return (
             <NavigationContainer ref={(nav) => {
                 navigationRef.current = nav;
@@ -186,4 +213,4 @@ function RouteController() {
     )
 }
 
-export default registerRootComponent(RouteController);
+export default (RouteController);
